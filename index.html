@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Data binding for Backbone.js</title>
+
+		<meta name="description" content="An overview of existing solutions">
+		<meta name="author" content="Kostiantyn Tsaregradskyi">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="bower_components/reveal.js/css/reveal.min.css">
+		<link rel="stylesheet" href="bower_components/reveal.js/css/theme/default.css" id="theme">
+		<link rel="stylesheet" href="css/additionalStyles.css">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="bower_components/reveal.js/lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'bower_components/reveal.js/css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="bower_components/reveal.js/lib/js/html5shiv.js"></script>
+		<![endif]-->
+    </head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+                    <img src="images/backbone.png" style="background: none; border: none; box-shadow: none;">
+					<h3>мастер-класс</h3>
+                    <p>
+						<small>Автор <a target="_blank" href="mailto: tsaregradskyi@gmail.com">Константин Цареградский</a></small>
+					</p>
+				</section>
+
+                <section>
+                    <p>Backbone.js gives structure to web applications by providing</p>
+                    <br/>
+                    <ul>
+                        <li><strong>models</strong> with key-value binding and custom events,</li>
+                        <li><strong>collections</strong> with a rich API of enumerable functions,</li>
+                        <li><strong>views</strong> with declarative event handling,</li>
+                    </ul>
+                    <br/>
+                    <br/>
+                    <p>and connects it all to your existing API over a RESTful JSON interface.</p>
+                </section>
+
+                <section>
+                    <h3>Немного фактов</h3>
+                    <p><a target="_blank" href="http://backbonejs.org/">http://backbonejs.org/</a></p>
+                    <p>Библиотека, а не фреймворк</p>
+                    <p>Развивается с 2010 года</p>
+                    <p>Open-source, MIT лицензия</p>
+                    <p>Автор Jeremy Ashkenas (<a target="_blank" href="https://github.com/jashkenas">https://github.com/jashkenas</a>), создатель CoffeeScript и Underscore.js</p>
+                </section>
+
+                <section>
+                    <h3>Компании и сайты, использующие Backbone</h3>
+                    <ul>
+                        <li><a target="_blank" href="https://www.airbnb.com/">AirBnB</a></li>
+                        <li><a target="_blank" href="https://foursquare.com/">Foursquare</a></li>
+                        <li><a target="_blank" href="http://www.hulu.com/">Hulu</a></li>
+                        <li><a target="_blank" href="https://bitbucket.org/">Bitbucket</a></li>
+                        <li><a target="_blank" href="https://disqus.com/">Disqus</a></li>
+                        <li><a target="_blank" href="https://delicious.com/">Delicious</a></li>
+                        <li><a target="_blank" href="https://www.khanacademy.org/">Khan Academy</a></li>
+                        <li><a target="_blank" href="http://mobile.walmart.com/">Walmart Mobile</a></li>
+                        <li><a target="_blank" href="https://trello.com/">Trello</a></li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h3>Зависимости</h3>
+                    <ul>
+                        <li><a target="_blank" href="http://underscorejs.org">Underscore.js</a> / <a target="_blank" href="https://lodash.com/">Lo-Dash</a></li>
+                        <li><a target="_blank" href="http://jquery.com">jQuery</a> / <a target="_blank" href="http://zeptojs.com/">Zepto</a></li>
+                        <li>теоретически есть возможность использовать Backbone без этих зависимостей</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h3>Идея приложения</h3>
+                    <img src="images/mockup1.png"/>
+                </section>
+
+                <section>
+                    <h3>Вспомогательные инструменты</h3>
+                    <img src="images/nodejs.svg" style="height: 100px; background: none; border: none; box-shadow: none;">
+                    <br>
+                    <img src="images/npm.svg" style="height: 100px; background: none; border: none; box-shadow: none;">
+                    <br>
+                    <img src="images/express.png" style="height: 100px; background: none; border: none; box-shadow: none;">
+                    <br>
+                    <img src="images/bower.png" style="height: 100px; background: none; border: none; box-shadow: none;">&nbsp;&nbsp;&nbsp;&nbsp;<span style="vertical-align: top; line-height: 114px;">  Bower</span>
+                </section>
+
+				<section>
+                    <h3>Разобъем наше будущее приложение на составляющие части</h3>
+                    <img src="images/mockup2.png"/>
+                </section>
+
+                <section>
+                    <h3>Backbone & MVC pattern</h3>
+                    <p>Backbone.View сочитает в себе свойства как контроллера, так и представления.</p>
+                    <p>По-этому обычно о Backbone говорят как о MV* (Model-View-Whatever) библиотеке.</p>
+                    <p>Также иногда Backbone рассматривают как реализацию паттерна MVP.</p>
+                </section>
+
+                <section>
+                    <h3>Single-page applications (SPA)</h3>
+                    <p>Это веб-приложение, которое выполняется непосредственно на стороне клиента в Web-браузере, написанное на комбинации из HTML, JavaScript и CSS. При переходи с одной "страницы" приложения на другую полная перезагрузка страницы не происходит. Это позволяет увеличить "отзывчивость" приложения.</p>
+                    <br/>
+                    <p>Примеры типичных SPA - Gmail, Vkontakte, Twitter, Instagram.</p>
+                    <br/>
+                    <p>Для эмуляции истории в браузере используется <strong>location.hash</strong> или <strong>HTML5 History pushState</strong>.</p>
+                </section>
+
+                <section>
+                    <h3>Настройка и кастомизация</h3>
+                    <ul>
+                        <li>Возможно использовать любой template engine - Handlebars, Underscore templating, Mustache, Jade etc.</li>
+                        <li>Возможно глобально переопределить функцию работы с AJAX (для REST запросов) - Backbone.ajax. Функция должна быть совместима с jQuery.ajax, если используется стандартный Backbone.sync</li>
+                        <li>Возможно глобально переопределить функцию синхронизации модели/коллекции с сервером - Backbone.sync. Таким образом можно реализовать работу с localStorage, RPC и т.д. вместо стандартного REST.</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h3>Выводы: чем хорош Backbone</h3>
+                    <ul>
+                        <li>Стабильный код</li>
+                        <li>Гибкость и расширяемость - девиз "Всегда есть более одного пути сделать что-то"</li>
+                        <li>Подходит для различных применений - как для маленьких виджетов, так и для приложений энтерпрайз уровня</li>
+                        <li>Большое коммьюнити, много плагинов и расширений</li>
+                        <li>Возможность использовать только некоторые части библиотеки (например, только коллекции и модели)</li>
+                        <li>Легкая интеграция с другими популярными фреймворками (React, Knockout)</li>
+                        <li>Легко использовать с AMD</li>
+                        <li>Можно использовать любой template engine, либо не использовать вообще</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h3>Недостатки "чистого" Backbone</h3>
+                    <ul>
+                        <li>Отсутвует понятие "приложения"</li>
+                        <li>Нет автоматического memory management</li>
+                        <li>Нет CollectionView</li>
+                        <li>Нет возможности работать с регионами и общим лейаутом приложения</li>
+                        <li>Нет вложенных моделей и коллекций</li>
+                        <li>Backbone.View в своей изначальной концепции - медленный</li>
+                        <li>У Backbone.View нет никакого lifecycle</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h3>Для каких приложений подходит Backbone</h3>
+                    <ul>
+                        <li>Бекенд организован в виде REST-сервисов</li>
+                        <li>Предполагается большой объем логики на уровне моделей</li>
+                        <li>Необходимо интегрироваться с другими библиотеками</li>
+                        <li>Предполгается много кастомных компонентов</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h3>Полезные расширения для Backbone</h3>
+                    <br/>
+                    <p><strong>Фреймворки</strong></p>
+                    <ul>
+                        <li>Marionette - <a target="_blank" href="http://marionettejs.com">http://marionettejs.com</a></li>
+                        <li>Chaplin - <a target="_blank" href="http://chaplinjs.org">http://chaplinjs.org</a></li>
+                        <li>Thorax - <a target="_blank" href="http://thoraxjs.org">http://thoraxjs.org</a></li>
+                    </ul>
+                    <br/><br/>
+                    <p><strong>Data-binding</strong></p>
+                    <ul>
+                        <li>Epoxy - <a target="_blank" href="http://epoxyjs.org">http://epoxyjs.org</a></li>
+                        <li>Backbone.Stickit - <a target="_blank" href="http://nytimes.github.io/backbone.stickit">http://nytimes.github.io/backbone.stickit</a></li>
+                        <li>Rivets - <a target="_blank" href="http://rivetsjs.com">http://rivetsjs.com</a></li>
+                        <li>Knockback - <a target="_blank" href="http://kmalakoff.github.io/knockback/">http://kmalakoff.github.io/knockback/</a></li>
+                    </ul>
+                    <br/><br/>
+                    <p><strong>LayoutManager</strong></p>
+                    <ul>
+                        <li>LayoutManager - <a target="_blank" href="http://layoutmanager.org">http://layoutmanager.org</a></li>
+                    </ul>
+                </section>
+
+                <section>
+                    <p><strong>Backbone без jQuery и Underscore</strong></p>
+                    <ul>
+                        <li>Exoskeleton - <a target="_blank" href="http://exosjs.com/">http://exosjs.com</a></li>
+                        <li>Backbone.Native - <a target="_blank" href="https://github.com/inkling/backbone.native">https://github.com/inkling/backbone.native</a></li>
+                        <li>Backbone.NativeAjax - <a target="_blank" href="https://github.com/akre54/Backbone.NativeAjax">https://github.com/akre54/Backbone.NativeAjax</a></li>
+                        <li>Backbone.NativeView - <a target="_blank" href="https://github.com/akre54/Backbone.NativeView">https://github.com/akre54/Backbone.NativeView</a></li>
+                    </ul>
+                    <br/><br/>
+                    <p><strong>Вложенные модели и коллекции</strong></p>
+                    <ul>
+                        <li>backbone-deep-model - <a target="_blank" href="https://github.com/powmedia/backbone-deep-model">https://github.com/powmedia/backbone-deep-model</a></li>
+                        <li>backbone-nestify - <a target="_blank" href="http://revelytix.github.io/backbone-nestify/">http://revelytix.github.io/backbone-nestify</a></li>
+                        <li>Backbone.Linear - <a target="_blank" href="https://github.com/darrrk/backbone.linear">https://github.com/darrrk/backbone.linear</a></li>
+                    </ul>
+                </section>
+
+                <section>
+                    <p><strong>Undo/Redo и state tracking для моделей</strong></p>
+                    <ul>
+                        <li>Backbone.trackit - <a target="_blank" href="https://github.com/NYTimes/backbone.trackit">https://github.com/NYTimes/backbone.trackit</a></li>
+                        <li>Backbone.Undo.js - <a target="_blank" href="http://backbone.undojs.com/">http://backbone.undojs.com</a></li>
+                        <li>Backbone.ActAs.Mementoable - <a target="_blank" href="https://github.com/iVariable/Backbone.actAs.Mementoable">https://github.com/iVariable/Backbone.actAs.Mementoable</a></li>
+                        <li>Backbone.memento - <a target="_blank" href="https://github.com/derickbailey/backbone.memento">https://github.com/derickbailey/backbone.memento</a></li>
+                    </ul>
+                    <br/><br/>
+                    <p><strong>Валидация моделей</strong></p>
+                    <ul>
+                        <li>Backbone.Validation - <a target="_blank" href="https://github.com/thedersen/backbone.validation">https://github.com/thedersen/backbone.validation</a></li>
+                        <li>Backbone.Validator - <a target="_blank" href="https://github.com/toddself/Backbone.Validator">https://github.com/toddself/Backbone.Validator</a></li>
+                        <li>backbone-validator - <a target="_blank" href="https://github.com/fantactuka/backbone-validator">https://github.com/fantactuka/backbone-validator</a></li>
+                    </ul>
+                </section>
+
+                <section>
+                    <p><strong>Работа с различными storage</strong></p>
+                    <ul>
+                        <li>Backbone.localStorage - <a target="_blank" href="http://documentup.com/jeromegn/backbone.localStorage">http://documentup.com/jeromegn/backbone.localStorage</a></li>
+                        <li>backbone.couchdb.js - <a target="_blank" href="https://github.com/pyronicide/backbone.couchdb.js">https://github.com/pyronicide/backbone.couchdb.js</a></li>
+                        <li>Backbone.ioBind - <a target="_blank" href="https://noveogroup.github.io/backbone.iobind/">https://noveogroup.github.io/backbone.iobind</a></li>
+                        <li>Backbone-mongodb - <a target="_blank" href="https://github.com/dealancer/backbone-mongodb">https://github.com/dealancer/backbone-mongodb</a></li>
+                    </ul>
+                    <br/><br/>
+                    <p><strong>Поддержка отношений между моделей</strong></p>
+                    <ul>
+                        <li>Backbone-relational - <a target="_blank" href="http://backbonerelational.org/">http://backbonerelational.org</a></li>
+                        <li>Backbone Associations - <a target="_blank" href="http://dhruvaray.github.io/backbone-associations">http://dhruvaray.github.io/backbone-associations</a></li>
+                        <li>Backbone.Rel - <a target="_blank" href="https://github.com/masylum/Backbone.Rel">https://github.com/masylum/Backbone.Rel</a></li>
+                        <li>ligament.js - <a target="_blank" href="https://github.com/dbrady/ligament.js">https://github.com/dbrady/ligament.js</a></li>
+                    </ul>
+                </section>
+
+                <section>
+                    <p><strong>Pagination для коллекций</strong></p>
+                    <ul>
+                        <li>backbone.paginator - <a target="_blank" href="https://github.com/backbone-paginator/backbone.paginator">https://github.com/backbone-paginator/backbone.paginator</a></li>
+                        <li>Backbone.actAs.Paginatable - <a target="_blank" href="https://github.com/iVariable/Backbone.actAs.Paginatable">https://github.com/iVariable/Backbone.actAs.Paginatable</a></li>
+                        <li>Backbone.SimplePaginator - <a target="_blank" href="https://github.com/seei/backbone.simple-paginator">https://github.com/seei/backbone.simple-paginator</a></li>
+                    </ul>
+                    <br/><br/>
+                    <p><strong>Дружим Backbone и React</strong></p>
+                    <ul>
+                        <li>backbone-react-component - <a target="_blank" href="https://github.com/magalhas/backbone-react-component">https://github.com/magalhas/backbone-react-component</a></li>
+                        <li>react.backbone - <a target="_blank" href="https://github.com/clayallsopp/react.backbone">https://github.com/clayallsopp/react.backbone</a></li>
+                        <li>react-backbone - <a target="_blank" href="https://github.com/jhudson8/react-backbone">https://github.com/jhudson8/react-backbone</a></li>
+                    </ul>
+                </section>
+
+                <section>
+                    <p><strong>Инструменты для разработки</strong></p>
+                    <ul>
+                        <li>Backbone Eye (Firefox) - <a target="_blank" href="https://github.com/dhruvaray/spa-eye">https://github.com/dhruvaray/spa-eye</a></li>
+                        <li>Backbone Debugger (Chrome) - <a target="_blank" href="https://github.com/Maluen/Backbone-Debugger">https://github.com/Maluen/Backbone-Debugger</a></li>
+                        <li>Marionette Inspector (Chrome) - <a target="_blank" href="https://github.com/marionettejs/marionette.inspector">https://github.com/marionettejs/marionette.inspector</a></li>
+                    </ul>
+                    <br/><br/>
+                    <p><strong>И десятки других плагинов и расширений на <a target="_blank" href="https://github.com/jashkenas/backbone/wiki/Extensions%2C-Plugins%2C-Resources">https://github.com/jashkenas/backbone/wiki/Extensions%2C-Plugins%2C-Resources</a></strong></p>
+                </section>
+
+                <section>
+                    <h1>Вопросы?</h1>
+                </section>
+
+                <section>
+                    <p>Эта презентация доступна по адресу - <a target="_blank" href="http://tsareg.github.io/backbone-master-class-presentation">http://tsareg.github.io/backbone-master-class-presentation</a></p>
+                    <br/>
+                    <p>Пример приложения - <a target="_blank" href="https://github.com/tsareg/backbone-master-class-sample">https://github.com/tsareg/backbone-master-class-sample</a></p>
+                    <br/>
+                    <p>Презентация о различных data-binding библиотеках для Backbone - <a target="_blank" href="http://tsareg.github.io/Data-binding-for-Backbone.js">http://tsareg.github.io/Data-binding-for-Backbone.js</a></p>
+                    <p>Презентация создана с помощью <a target="_blank" href="http://lab.hakim.se/reveal-js/">Reveal.js</a></p>
+                </section>
+
+                <section>
+                    <h1>Спасибо за внимание</h1>
+                </section>
+			</div>
+
+		</div>
+
+		<script src="bower_components/reveal.js/lib/js/head.min.js"></script>
+		<script src="bower_components/reveal.js/js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'bower_components/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'bower_components/reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'bower_components/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'bower_components/reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'bower_components/reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'bower_components/reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
